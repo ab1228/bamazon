@@ -28,10 +28,11 @@ function displayProducts() {
         Stock: ${results[i].stockQuantity}
         ___________________________________`);
         }
+        ///// here we call our prompt function///
         chooseProduct();
     });
 
-    ///// here we call our prompt function///
+
 
 }
 function chooseProduct() {
@@ -62,5 +63,35 @@ function chooseProduct() {
 
 
 }
+function processOrder(id, quantity) {
+    connection.query('SELECT * FROM products WHERE id=?', [id], function (error, results, fields) {
+        if (error) throw error;
+        console.log(results);
+        if (quantity < results[0].stockQuantity) {
+            console.log("Your purchase can be completed");
+            var price = quantity * results[0].price;
+            var currentQuantity = results[0].stockQuantity - quantity;
+            updateDatabase(currentQuantity, id);
+            console.log('Your total is going to be $' + price);
+            console.log('The current stock quantity for this itme is ' + currentQuantity);
+            console.log('Thank you for shopping with us, if you wish to other items, run the app again, bye :)')
+            connection.end()
+        } else {
+            console.log('We dont have enough product to complete your order');
+            chooseProduct();
+        }
+    });
+
+}
+function updateDatabase(quantity, id) {
+    connection.query('UPDATE products SET stockQuantity=? WHERE id=?', [quantity, id], function (error) {
+        if (error) throw error;
+
+
+    })
+
+
+}
+
 
 

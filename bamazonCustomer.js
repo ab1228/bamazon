@@ -57,8 +57,12 @@ function chooseProduct() {
             }
         ])
         .then(answers => {
-            console.log(answers);
-            processOrder(answers.productID, answers.numberOfItems);
+            if (answers.confirmItem === true) {
+                processOrder(answers.productID, answers.numberOfItems);
+            } else {
+                console.log('Thank you, see you later')
+            }
+
         });
 
 
@@ -73,8 +77,8 @@ function processOrder(id, quantity) {
             var currentQuantity = results[0].stockQuantity - quantity;
             updateDatabase(currentQuantity, id);
             console.log('Your total is going to be $' + price);
-            console.log('The current stock quantity for this itme is ' + currentQuantity);
-            console.log('Thank you for shopping with us, if you wish to other items, run the app again, bye :)')
+            console.log('The current stock quantity for this item is ' + currentQuantity);
+            console.log('Thank you for shopping with us, if you wish buy to other items, run the app again, bye :)')
             connection.end()
         } else {
             console.log('We dont have enough product to complete your order');

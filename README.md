@@ -13,3 +13,7 @@ https://github.com/ab1228/bamazon/blob/master/assets/images/four.png
 Confirm purchase:
 https://github.com/ab1228/bamazon/blob/master/assets/images/five.png
 
+Purhcase total, updated stock quantity and connection end run app again for another purchase:
+https://github.com/ab1228/bamazon/blob/master/assets/images/six.png
+
+
